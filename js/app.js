@@ -106,7 +106,17 @@ function filtrarAuto() {
         .filter(filtrarTransmision)
         .filter(filtrarColor);
     // console.log(resultado);
-    mostrarAutos(resultado);
+    if (resultado.length) mostrarAutos(resultado);
+    else noResultado();
+
+}
+
+function noResultado() {
+    limpiarHTML();
+    const noResultado = document.createElement('div');
+    noResultado.classList.add('alerta', 'error');
+    noResultado.textContent = 'No hay resultados que coincidan con la búsqueda';
+    resultado.appendChild(noResultado);
 }
 
 function filtrarMarca(auto) {
@@ -122,14 +132,14 @@ function filtrarYear(auto) {
 }
 
 function filtrarMinimo(auto) {
-    const { precio } = datosBusqueda;
-    if (precio) return auto.precio > +minimo;
+    const { minimo } = datosBusqueda;
+    if (minimo) return auto.precio >= +minimo;
     return auto;
 }
 
 function filtrarMaximo(auto) {
-    const { precio } = datosBusqueda;
-    if (precio) return auto.precio < +maximo;
+    const { maximo } = datosBusqueda;
+    if (maximo) return auto.precio <= +maximo;
     return auto;
 }
 
